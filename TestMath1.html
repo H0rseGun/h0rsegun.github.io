@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333; /* 修改背景颜色为深色 */
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #fff; /* 修改标题颜色为白色 */
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-control {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-align: center;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    
+    .number-input {
+      display: none;
+    }
+
+    /* 雪花飘落效果 */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      left: 0;
+      height: 5px;
+      width: 5px;
+      background-color: rgba(255, 255, 255, 0.8); /* 修改背景颜色为稍微透明的白色 */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: snowfall 5s linear infinite;
+      transform: translate(0, -10px) rotate(0deg);
+    }
+
+    @keyframes snowfall {
+      0% {
+        transform: translate(0, -10px) rotate(0deg);
+      }
+      100% {
+        transform: translate(0, 100vh) rotate(180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>计算器</h1>
+  <div class="container">
+    <div id="numberInputs">
+      <input type="number" name="num1" id="num1" class="form-control number-input">
+      <input type="number" name="num2" id="num2" class="form-control number-input">
+    </div>
+    <button onclick="addInput()" class="btn">添加数字</button>
+    <button onclick="removeInput()" class="btn">删除数字</button>
+    <select id="operation" class="form-control">
+      <option value="add">加</option>
+      <option value="subtract">减</option>
+      <option value="multiply">乘</option>
+      <option value="divide">除</option>
+    </select>
+    <button onclick="calculate()" class="btn">计算</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    var numInputs = 2;
+    var numberInputsDiv = document.getElementById('numberInputs');
+    var numberInputs = document.getElementsByClassName('number-input');
+
+    for (var i = 0; i < numberInputs.length; i++) {
+      if (i >= 2) {
+        numberInputs[i].style.display = 'none';
+      }
+    }
+
+    function addInput() {
+      numInputs++;
+      var inputName = "num" + numInputs;
+      var inputId = "num" + numInputs;
+
+      var inputHtml = '<input type="number" name="' + inputName + '" id="' + inputId + '" class="form-control number-input">';
+
+      numberInputsDiv.insertAdjacentHTML('beforeend', inputHtml);
+
+      if (numInputs > 2) {
+        for (var i = 2; i < numberInputs.length; i++) {
+          numberInputs[i].style.display = 'block';
+        }
+      }
+    }
+
+    function removeInput() {
+      if (numInputs > 2) {
+        var lastInputId = "num" + numInputs;
+        var lastInput = document.getElementById(lastInputId);
+        lastInput.parentNode.removeChild(lastInput);
+        numInputs--;
+
+        if (numInputs <= 2) {
+          for (var i = 2; i < numberInputs.length; i++) {
+            numberInputs[i].style.display = 'none';
+          }
+        }
+      }
+    }
+
+    function calculate() {
+      var result;
+      var operation = document.getElementById('operation').value;
+      var numbers = [];
+
+      for (var i = 1; i <= numInputs; i++) {
+        var numberInputValue = parseFloat(document.getElementById('num' + i).value);
+        if (!isNaN(numberInputValue)) {
+          numbers.push(numberInputValue);
+        }
+      }
+
+      if (numbers.length >= 2) {
+        result = numbers[0];
+        for (var i = 1; i < numbers.length; i++) {
+          if (operation === "add") {
+            result += numbers[i];
+          } else if (operation === "subtract") {
+            result -= numbers[i];
+          } else if (operation === "multiply") {
+            result *= numbers[i];
+          } else if (operation === "divide") {
+            result /= numbers[i];
+          }
+        }
+      }
+
+      if (result === undefined || isNaN(result)) {
+        document.getElementById('result').innerHTML = "请输入数字并选择操作。";
+      } else {
+        document.getElementById('result').innerHTML = "结果是：" + result;
+      }
+    }
+
+    /* 雪花飘落效果 */
+    function createSnowflake() {
+      var snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.transform = 'rotate(' + (Math.random() * 15 - 7.5) + 'deg)'; /* 添加旋转角度 */
+
+      document.body.appendChild(snowflake);
+
+      setTimeout(function() {
+        snowflake.remove();
+      }, 5000);
+    }
+
+    setInterval(createSnowflake, 200);
+  </script>
+</body>
+</html>
