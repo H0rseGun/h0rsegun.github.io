@@ -1,123 +1,128 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>我的个人博客</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H0rseGun's Website</title>
+    <link rel="icon" href="logo.ico">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        color: #fff;
-        overflow: hidden;
-      }
-
-      h1 {
-        text-align: center;
-        color: #fff;
-        margin-bottom: 20px;
-        opacity: 0;
-        animation: fade-in 3s forwards;
-      }
-
-      @keyframes fade-in {
-        from {
-          opacity: 0;
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          color: #fff;
+          overflow: hidden;
         }
-        to {
-          opacity: 1;
-        }
-      }
-
-      a {
-        display: block;
-        margin-bottom: 10px;
-        color: #00aaff;
-        text-decoration: none;
-      }
-
-      hr {
-        border: none;
-        height: 1px;
-        background-color: blue;
-        margin: 40px 0;
-      }
-
-      h1:last-of-type {
-        margin-top: 50px;
-      }
-
-      #background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background: linear-gradient(to bottom, hsl(0, 0%, 5%), transparent), url('pic/test1.webp');
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-      
-      .snowflake-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-
-      .snowflake {
-        position: absolute;
-        top: -20px;
-        width: 10px;
-        height: 10px;
-        background-color: #fff;
-        border-radius: 50%;
-        pointer-events: none;
-        animation: snowfall linear infinite;
-      }
-
-      @keyframes snowfall {
-        0% {
-          transform: translateY(-100%);
-        }
-        100% {
-          transform: translateY(100vh);
-        }
-      }
-
-      /* 解决超链接的点击框问题 */
-      *:focus {
-        outline: none;
-      }
-    </style>
-  </head>
   
-  <body>
+        h1 {
+          text-align: center;
+          color: #fff;
+          margin-bottom: 20px;
+          opacity: 0;
+          animation: fade-in 3s forwards;
+        }
+  
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+  
+        a {
+          display: block;
+          margin-bottom: 10px;
+          color: #00aaff;
+          text-decoration: none;
+        }
+  
+        hr {
+          border: none;
+          height: 1px;
+          background-color: blue;
+          margin: 40px 0;
+        }
+  
+        h1:last-of-type {
+          margin-top: 50px;
+        }
+  
+        #background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background: linear-gradient(to bottom, hsl(0, 0%, 5%), transparent), url('pic/test1.webp');
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        
+        .snowflake-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          overflow: hidden;
+        }
+  
+        .snowflake {
+          position: absolute;
+          top: -20px;
+          width: 10px;
+          height: 10px;
+          background-color: #fff;
+          border-radius: 50%;
+          pointer-events: none;
+          animation: snowfall linear infinite;
+        }
+  
+        @keyframes snowfall {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(100vh);
+          }
+        }
+
+        /* 解决超链接的点击框问题 */
+        *:focus {
+          outline: none;
+        }
+      </style>
+</head>
+
+<body>
     <div id="background"></div>
     <div class="snowflake-container"></div>
-    <h1>欢迎来到我的博客！</h1>
-    <a href="https://space.bilibili.com/605827566">我的B站账号</a>
-    <a href="dlpage.html">一些工具</a>
-    
+    <h1>欢迎</h1>
+    <a href="dlpage.html">工具列表</a>
+    <a href="https://space.bilibili.com/605827566">Bilibili 账号</a>
     <script>
-      function createSnowflake() {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
-        snowflake.style.left = Math.random() * window.innerWidth + "px";
-        document.querySelector(".snowflake-container").appendChild(snowflake);
-        setTimeout(() => {
-          snowflake.remove();
-        }, 5000);
-      }
-
-      function snowfall() {
-        setInterval(createSnowflake, 200);
-      }
-
-      snowfall();
-    </script>
-  </body>
+        function createSnowflake() {
+          const snowflake = document.createElement("div");
+          snowflake.classList.add("snowflake");
+          snowflake.style.left = Math.random() * window.innerWidth + "px";
+          document.querySelector(".snowflake-container").appendChild(snowflake);
+          setTimeout(() => {
+            snowflake.remove();
+          }, 5000);
+        }
+  
+        function snowfall() {
+          setInterval(createSnowflake, 200);
+        }
+  
+        window.onload = function() {
+          snowfall();
+        };
+      </script>
+</body>
 </html>
