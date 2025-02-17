@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>黄瓜の主页</title>
+  <style>
+    :root { 
+      --button-color: #8a2be2;
+      --button-hover: #6a1bbd;
+      --button-shadow: rgba(138, 43, 226, 0.4);
+      --bg-dark: #121212;
+      --bg-light: #fff;
+      --text-dark: #fff;
+      --text-light: #000;
+      --notification-bg: #8a2be2;
+      --transition-duration: 0.3s;
+      --glow-color: #8a2be2;
+    }
+    body {
+      position: relative;
+      background: linear-gradient(135deg, #121212, #4b0082);
+      background-size: 200% 200%;
+      animation: bgAnimation 6s ease-in-out infinite;
+      color: var(--text-dark);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeIn 1.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(40px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      transition: transform 0.35s ease-out, color 0.35s ease-out, text-shadow 0.35s ease-out;
+      text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+    }
+
+    h1:hover {
+      transform: scale(1.08);
+      color: var(--button-color);
+      text-shadow: 0 0 25px var(--glow-color), 0 0 50px var(--glow-color), 0 0 75px var(--glow-color);
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--button-color);
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 12px;
+      transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-out;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+    }
+
+    .button:hover {
+      background-color: var(--button-hover);
+      transform: scale(1.08);
+      box-shadow: 0 0 25px var(--button-shadow), 0 0 35px var(--glow-color);
+    }
+
+    .button:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    #random-quote {
+      margin-top: 30px;
+      font-size: 1.2em;
+      opacity: 0;
+      animation: fadeInQuote 1.2s ease-out forwards;
+    }
+
+    @keyframes fadeInQuote {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .xp-container {
+      position: relative;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    .xp-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2em;
+      background-color: var(--button-color);
+      border-radius: 12px;
+      transition: transform 0.8s ease, background-color 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease-out;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.3);
+    }
+
+    .xp-toggle:hover {
+      background-color: var(--button-hover);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+    }
+
+    .arrow {
+      transition: transform 0.4s ease;
+    }
+
+    .xp-toggle.open .arrow {
+      transform: rotate(90deg);
+    }
+
+    .xp-options {
+      max-height: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      background-color: var(--button-color);
+      border-radius: 12px;
+      flex-direction: column;
+      z-index: 10;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .xp-options.show {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .xp-options .button {
+      margin: 0;
+      width: 100%;
+      opacity: 1;
+      transform: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .xp-options .button:hover {
+      background-color: var(--button-hover);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+    }
+
+    .notification {
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background-color: var(--notification-bg);
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-size: 1em;
+      color: white;
+      opacity: 0;
+      animation: notificationFadeIn 0.8s ease-out forwards;
+      width: auto;
+      max-width: 80%;
+      word-wrap: break-word;
+      box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+    }
+
+    @keyframes notificationFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes notificationSlideOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-40px); }
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 1.5s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    .star:nth-child(odd) {
+      animation-duration: 2s;
+      opacity: 0.6;
+    }
+
+    .star:nth-child(even) {
+      animation-duration: 1.3s;
+      opacity: 0.8;
+    }
+
+    .star-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @media (max-width: 600px) {
+      .button-container {
+        max-width: 100%;
+      }
+
+      .xp-container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>黄瓜の主页</h1>
+  <div class="button-container">
+    <a class="button" href="https://space.bilibili.com/605827566" target="_blank">Bilibili账户</a>
+    <a class="button" href="https://github.com/H0rseGun" target="_blank">Github账户</a>
+  </div>
+  <p id="random-quote"></p>
+
+  <div class="star-container"></div>
+
+  <script>
+    const starContainer = document.querySelector('.star-container');
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      starContainer.appendChild(star);
+    }
+
+    // 星星数量
+    for (let i = 0; i < 30; i++) {
+      createStar();
+    }
+
+    const catPhrases = ["呜呜，不要摸了喵...", "喵...好舒服~", "喵喵喵?", "笨蛋，不要再摸了喵！", "喵~"];
+    const devilPhrases = ["杂鱼~", "杂鱼hentai大叔，在做什么呢~？", "你点击那行字的动作好可爱呢~杂鱼~"];
+    let currentPhrases = catPhrases;
+    let clickCount = 0;
+    let xpAdded = false;
+    const h1Element = document.querySelector('h1');
+    const quoteElement = document.getElementById('random-quote');
+    const buttonContainer = document.querySelector('.button-container');
+
+    h1Element.addEventListener('click', () => {
+      clickCount++;
+      quoteElement.textContent = currentPhrases[Math.floor(Math.random() * currentPhrases.length)];
+      quoteElement.style.animation = 'fadeInQuote 1.2s ease-out forwards';
+
+      if (clickCount === 10 && !xpAdded) {
+        xpAdded = true;
+        const xpContainer = document.createElement('div');
+        xpContainer.classList.add('xp-container');
+
+        const xpToggle = document.createElement('button');
+        xpToggle.className = 'button xp-toggle';
+        xpToggle.innerHTML = 'XP选项 <span class="arrow">▸</span>';
+
+        const xpOptions = document.createElement('div');
+        xpOptions.className = 'xp-options';
+
+        const catOption = document.createElement('button');
+        catOption.className = 'button';
+        catOption.textContent = '猫猫';
+        catOption.dataset.option = 'cat';
+
+        const devilOption = document.createElement('button');
+        devilOption.className = 'button';
+        devilOption.textContent = '雌小鬼';
+        devilOption.dataset.option = 'devil';
+
+        xpOptions.append(catOption, devilOption);
+        xpContainer.append(xpToggle, xpOptions);
+        buttonContainer.appendChild(xpContainer);
+
+        xpToggle.addEventListener('click', () => {
+          xpOptions.classList.toggle('show');
+          xpToggle.classList.toggle('open');
+        });
+
+        catOption.addEventListener('click', () => {
+          currentPhrases = catPhrases;
+          xpOptions.classList.remove('show');
+          xpToggle.classList.remove('open');
+          showNotification('已切换XP选项为猫猫');
+        });
+
+        devilOption.addEventListener('click', () => {
+          currentPhrases = devilPhrases;
+          xpOptions.classList.remove('show');
+          xpToggle.classList.remove('open');
+          showNotification('已切换XP选项为雌小鬼');
+        });
+      }
+    });
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'notificationSlideOut 0.8s ease-out forwards';
+        setTimeout(() => notification.remove(), 800);
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
