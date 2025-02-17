@@ -68,12 +68,20 @@
       gap: 15px;
       max-width: 200px;
       width: 100%;
+      opacity: 0;
+      transform: scale(0.95);
+      animation: scaleIn 1.5s ease-out forwards;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .button {
       width: 100%;
-      max-width: 200px;
       padding: 15px;
+      opacity: 0.8;
       background-color: var(--button-color);
       color: white;
       text-decoration: none;
@@ -82,18 +90,19 @@
       transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-out;
       border: none;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.2), 0 0 30px rgba(138, 43, 226, 0.5);
     }
 
     .button:hover {
       background-color: var(--button-hover);
+      opacity: 0.9;
       transform: scale(1.08);
-      box-shadow: 0 0 25px var(--button-shadow), 0 0 35px var(--glow-color);
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.5), 0 0 50px var(--glow-color);
     }
 
     .button:active {
       transform: scale(0.98);
-      opacity: 0.9;
+      opacity: 0.8;
     }
 
     #random-quote {
@@ -122,16 +131,17 @@
       padding: 15px;
       font-size: 1.2em;
       background-color: var(--button-color);
-      border-radius: 12px;
+      border-radius: 15px;
       transition: transform 0.8s ease, background-color 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease-out;
       border: none;
       cursor: pointer;
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.3);
+      opacity: 0.8;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.2), 0 0 30px rgba(138, 43, 226, 0.5);
     }
-
     .xp-toggle:hover {
       background-color: var(--button-hover);
-      box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+      opacity: 0.8;
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.6);
     }
 
     .arrow {
@@ -146,6 +156,7 @@
       max-height: 0;
       overflow: hidden;
       position: absolute;
+      opacity: 0.8;
       top: 0;
       left: 100%;
       width: 100%;
@@ -154,18 +165,20 @@
       flex-direction: column;
       z-index: 10;
       opacity: 0;
-      transition: max-height 0.3s ease, opacity 0.3s ease;
+      transform: scale(0.95);
+      transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
     }
 
     .xp-options.show {
       max-height: 300px;
-      opacity: 1;
+      opacity: 0.8;
+      transform: scale(1);
     }
 
     .xp-options .button {
       margin: 0;
       width: 100%;
-      opacity: 1;
+      opacity: 0.8;
       transform: none;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
@@ -173,7 +186,8 @@
     .xp-options .button:hover {
       background-color: var(--button-hover);
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+      opacity: 0.9;
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.6);
     }
 
     .notification {
@@ -186,12 +200,12 @@
       border-radius: 12px;
       font-size: 1em;
       color: white;
-      opacity: 0;
+      opacity: 0.7;
       animation: notificationFadeIn 0.8s ease-out forwards;
       width: auto;
       max-width: 80%;
       word-wrap: break-word;
-      box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+      box-shadow: 0 0 15px var(--glow-color), 0 0 20px var(--glow-color);
     }
 
     @keyframes notificationFadeIn {
@@ -214,9 +228,10 @@
     }
 
     @keyframes twinkle {
-      0% { opacity: 0.3; }
+      0% { opacity: 0; }
       100% { opacity: 1; }
     }
+
 
     .star:nth-child(odd) {
       animation-duration: 2s;
@@ -268,10 +283,11 @@
       star.style.left = `${Math.random() * 100}%`;
       star.style.top = `${Math.random() * 100}%`;
       starContainer.appendChild(star);
-    }
-
+  }
+  
+  
     // 星星数量
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 40; i++) {
       createStar();
     }
 
