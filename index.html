@@ -297,6 +297,7 @@
   50% { box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 50px rgba(138, 43, 226, 1); }
   100% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.6), 0 0 20px rgba(138, 43, 226, 0.6); }
 }
+
 .progress-bar-container {
     position: absolute;
     top: 90%;
@@ -310,15 +311,16 @@
 
   .progress-bar {
     height: 100%;
-    background-color: var(--glow-color);
+    background: linear-gradient(135deg, #8a2be2, #ff66cc);
     width: 0%;
     border-radius: 5px;
-    animation: progress 2.5s ease-out forwards;
+    animation: progress 2.2s ease-out forwards;
     box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
   }
 
   @keyframes progress {
     0% { width: 0%; }
+    50% { width: 70%;}
     100% { width: 100%; }
   }
 </style>
