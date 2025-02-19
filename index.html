@@ -274,8 +274,8 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  opacity: 1; /* 初始可见 */
-  transition: opacity 0.8s ease-out; /* 添加淡出过渡效果 */
+  opacity: 1; 
+  transition: opacity 0.8s ease-out; 
 }
 
 .loading {
@@ -297,12 +297,42 @@
   50% { box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 50px rgba(138, 43, 226, 1); }
   100% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.6), 0 0 20px rgba(138, 43, 226, 0.6); }
 }
+.progress-bar-container {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: var(--glow-color);
+    width: 0%;
+    border-radius: 5px;
+    animation: progress 2.5s ease-out forwards;
+    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+  }
+
+  @keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+</style>
+
   </style>
 </head>
 <body>
   <div class="loading-container">
-  <div class="loading"></div>
-</div>
+    <div class="loading"></div>
+    <div class="progress-bar-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
 
   <h1>黄瓜の主页</h1>
   <div class="button-container">
@@ -318,13 +348,15 @@
   const loadingContainer = document.querySelector('.loading-container');
   
   setTimeout(() => {
-    loadingContainer.style.opacity = '0'; // 通过改变透明度来淡出
-  }, 2000); // 2秒后开始淡出
+    loadingContainer.style.opacity = '0'; 
+  }, 2000); 
   
   setTimeout(() => {
-    loadingContainer.style.display = 'none';  // 彻底隐藏元素，防止占据空间
-  }, 2800);  // 在动画结束后稍微延迟隐藏
+    loadingContainer.style.display = 'none';  
+  }, 2800);  
 });
+
+
     const starContainer = document.querySelector('.star-container');
 
     function createStar() {
