@@ -19,32 +19,43 @@
     }
     body {
       position: relative;
-      background: linear-gradient(135deg, #121212, #4b0082);
-      background-size: 200% 200%;
-      animation: bgAnimation 6s ease-in-out infinite;
       color: var(--text-dark);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
       opacity: 0;
       transform: translateY(40px);
-      animation: fadeIn 1.8s ease-out forwards;
-    }
+      overflow-x: hidden;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+          135deg,
+          hsl(270deg, 60%, 20%),
+          hsl(240deg, 60%, 20%),
+          hsl(300deg, 60%, 20%),
+          hsl(210deg, 60%, 20%)
+        );
+        background-size: 200% 200%;
+        animation: gradient-move 5s ease alternate infinite,fadeIn 1.5s ease-out forwards;
+      }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95) translateY(40px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    @keyframes bgAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    @keyframes gradient-move {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 100% 100%;
+        }
+      }
 
     h1 {
       font-size: 3em;
@@ -275,7 +286,7 @@
   align-items: center;
   z-index: 9999;
   opacity: 1; 
-  transition: opacity 0.8s ease-out; 
+  transition: opacity 1s ease-out; 
 }
 
 .loading {
@@ -299,30 +310,37 @@
 }
 
 .progress-bar-container {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-  }
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
 
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(135deg, #8a2be2, #ff66cc);
-    width: 0%;
-    border-radius: 5px;
-    animation: progress 2.2s ease-out forwards;
-    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
-  }
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(135deg, hsl(270, 100%, 50%), hsl(330, 100%, 70%));
+  width: 0%;
+  border-radius: 5px;
+  animation: progress 2.2s ease-out forwards, colorChange 2.2s ease-out forwards;
+  box-shadow: 0 0 10px hsl(270, 60%, 53%), 0 0 20px hsl(270, 60%, 53%);
+}
 
-  @keyframes progress {
-    0% { width: 0%; }
-    50% { width: 70%;}
-    100% { width: 100%; }
-  }
+@keyframes progress {
+  0% { width: 0%; }
+  70% { width: 70%; }
+  100% { width: 100%; }
+}
+
+@keyframes colorChange {
+  0% { background: linear-gradient(135deg, hsl(270, 100%, 50%), hsl(330, 100%, 70%)); }
+  100% { background: linear-gradient(135deg, hsl(270, 100%, 50%), hsl(330, 100%, 70%)); }
+}
+
+
 </style>
 
   </style>
@@ -386,8 +404,8 @@
 
     h1Element.addEventListener('click', () => {
       clickCount++;
-      quoteElement.textContent = currentPhrases[Math.floor(Math.random() * currentPhrases.length)];
-      quoteElement.style.animation = 'fadeInQuote 1.2s ease-out forwards';
+      const randomPhrase = currentPhrases[Math.floor(Math.random() * currentPhrases.length)];
+      showNotification(randomPhrase);
 
       if (clickCount === 10 && !xpAdded) {
         xpAdded = true;
