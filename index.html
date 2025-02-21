@@ -20,7 +20,8 @@
     body {
       position: relative;
       color: var(--text-dark);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins-Regular','SourceHanSansSC-Normal' sans-serif;
+      letter-spacing: 0.1em;
       display: flex;
       flex-direction: column;
       flex-direction: column;
@@ -44,8 +45,8 @@
       }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95) translateY(40px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(1)  }
+      to { opacity: 1; transform: scale(1)  }
     }
 
     @keyframes gradient-move {
@@ -93,7 +94,6 @@
       width: 100%;
       max-width: 200px;
       padding: 15px;
-      opacity: 0.8;
       background-color: var(--button-color);
       color: white;
       text-decoration: none;
@@ -107,8 +107,8 @@
 
     .button:hover {
       background-color: var(--button-hover);
-      opacity: 0.9;
-      transform: scale(1.08);
+      opacity: 0.7;
+      transform: scale(1.05);
       box-shadow: 0 0 35px rgba(138, 43, 226, 0.5), 0 0 50px var(--glow-color);
     }
 
@@ -232,8 +232,8 @@
 
     .star {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 2px;
+      height: 2px;
       background-color: white;
       border-radius: 50%;
       animation: twinkle 1.5s infinite alternate;
