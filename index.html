@@ -20,10 +20,9 @@
     body {
       position: relative;
       color: var(--text-dark);
-      font-family: 'Poppins-Regular','SourceHanSansSC-Normal' sans-serif;
+      font-family: 'Poppins-Regular', 'SourceHanSansSC-Normal', sans-serif;
       letter-spacing: 0.1em;
       display: flex;
-      flex-direction: column;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -31,18 +30,19 @@
       opacity: 0;
       transform: translateY(40px);
       overflow-x: hidden;
-        width: 100vw;
-        height: 100vh;
-        background: linear-gradient(
-          135deg,
-          hsl(270deg, 60%, 20%),
-          hsl(240deg, 60%, 20%),
-          hsl(300deg, 60%, 20%),
-          hsl(210deg, 60%, 20%)
-        );
-        background-size: 200% 200%;
-        animation: gradient-move 5s ease alternate infinite,fadeIn 1.5s ease-out forwards;
-      }
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(
+        135deg,
+        hsl(270deg, 60%, 20%),
+        hsl(240deg, 60%, 20%),
+        hsl(300deg, 60%, 20%),
+        hsl(210deg, 60%, 20%)
+      );
+      background-size: 200% 200%;
+      animation: gradient-move 5s ease alternate infinite, fadeIn 1.5s ease-out forwards;
+    }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(1)  }
@@ -99,10 +99,32 @@
       text-decoration: none;
       font-size: 1.2em;
       border-radius: 12px;
-      transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-out;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease;
       border: none;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(138, 43, 226, 0.2), 0 0 30px rgba(138, 43, 226, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .button:hover::before {
+      left: 100%;
     }
 
     .button:hover {
@@ -133,6 +155,7 @@
       position: relative;
       max-width: 200px;
       width: 100%;
+      margin-top: 5px;
     }
 
     .xp-toggle {
@@ -143,17 +166,41 @@
       padding: 15px;
       font-size: 1.2em;
       background-color: var(--button-color);
-      border-radius: 15px;
-      transition: transform 0.8s ease, background-color 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease-out;
+      border-radius: 12px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease;
       border: none;
       cursor: pointer;
-      opacity: 0.8;
+      opacity: 0.9;
       box-shadow: 0 0 15px rgba(138, 43, 226, 0.2), 0 0 30px rgba(138, 43, 226, 0.5);
+      position: relative;
+      overflow: hidden;
     }
+
     .xp-toggle:hover {
       background-color: var(--button-hover);
-      opacity: 0.8;
-      box-shadow: 0 0 35px rgba(138, 43, 226, 0.6);
+      opacity: 0.9;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.5), 0 0 50px var(--glow-color);
+    }
+
+    .xp-toggle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .xp-toggle:hover::before {
+      left: 100%;
     }
 
     .arrow {
@@ -168,7 +215,6 @@
       max-height: 0;
       overflow: hidden;
       position: absolute;
-      opacity: 0.8;
       top: 0;
       left: 100%;
       width: 100%;
@@ -179,69 +225,117 @@
       opacity: 0;
       transform: scale(0.95);
       transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
     }
 
     .xp-options.show {
       max-height: 300px;
-      opacity: 0.8;
+      opacity: 0.95;
       transform: scale(1);
     }
 
     .xp-options .button {
       margin: 0;
       width: 100%;
-      opacity: 0.8;
+      opacity: 0.9;
       transform: none;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      border-radius: 0;
+    }
+
+    .xp-options .button:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .xp-options .button:last-child {
+      border-radius: 0 0 12px 12px;
     }
 
     .xp-options .button:hover {
       background-color: var(--button-hover);
-      transform: scale(1.05);
-      opacity: 0.9;
-      box-shadow: 0 0 35px rgba(138, 43, 226, 0.6);
+      transform: scale(1.03);
+      opacity: 1;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
     }
 
     .notification {
       position: fixed;
       top: 10%;
-      left: 45%;
+      left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      background-color: var(--notification-bg);
-      padding: 12px 25px;
-      border-radius: 12px;
-      font-size: 1em;
+      background-color: rgba(138, 43, 226, 0.85);
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-size: 1.1em;
       color: white;
-      opacity: 0.7;
+      opacity: 0;
       animation: notificationFadeIn 0.8s ease-out forwards;
       width: auto;
       max-width: 80%;
       word-wrap: break-word;
-      box-shadow: 0 0 15px var(--glow-color), 0 0 20px var(--glow-color);
+      box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     @keyframes notificationFadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     @keyframes notificationSlideOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(-40px); }
+      from { opacity: 1; transform: translateX(-50%) translateY(0); }
+      to { opacity: 0; transform: translateX(-50%) translateY(-40px); }
     }
 
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
       background-color: white;
       border-radius: 50%;
       animation: twinkle 1.5s infinite alternate;
+      filter: blur(0.5px);
+    }
+    
+    .star:nth-child(3n+1) {
+      width: 2px;
+      height: 2px;
+      animation-duration: 2s;
+      opacity: 0.6;
+    }
+    
+    .star:nth-child(3n+2) {
+      width: 3px;
+      height: 3px;
+      animation-duration: 1.3s;
+      opacity: 0.8;
+    }
+    
+    .star:nth-child(3n) {
+      width: 4px;
+      height: 4px;
+      animation-duration: 2.5s;
+      opacity: 0.9;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
     }
 
     @keyframes twinkle {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      0% { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+    
+    @keyframes shootingStar {
+      0% {
+        transform: translateX(0) translateY(0) rotate(45deg) scale(1);
+        opacity: 1;
+      }
+      70% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(500px) translateY(500px) rotate(45deg) scale(0.1);
+        opacity: 0;
+      }
     }
 
 
@@ -325,8 +419,8 @@
   background: linear-gradient(135deg, hsl(270, 100%, 50%), hsl(330, 100%, 70%));
   width: 0%;
   border-radius: 5px;
-  animation: progress 2.2s ease-out forwards, colorChange 2.2s ease-out forwards;
   box-shadow: 0 0 10px hsl(270, 60%, 53%), 0 0 20px hsl(270, 60%, 53%);
+  transition: width 0.3s ease-out;
 }
 
 @keyframes progress {
@@ -343,7 +437,6 @@
 
 </style>
 
-  </style>
 </head>
 <body>
   <div class="loading-container">
@@ -364,33 +457,103 @@
   <div class="star-container"></div>
 
   <script>
+    // 页面加载进度监控
+    const progressBar = document.querySelector('.progress-bar');
+    const loadingContainer = document.querySelector('.loading-container');
+    
+    // 计算和更新加载进度
+    function updateProgress(event) {
+      if (event.lengthComputable) {
+        const percentComplete = (event.loaded / event.total) * 100;
+        progressBar.style.width = percentComplete + '%';
+      }
+    }
+    
+    // 监听页面资源加载情况
+    window.addEventListener('DOMContentLoaded', () => {
+      let loadedResources = 0;
+      const totalResources = document.images.length + 
+                            document.querySelectorAll('script').length + 
+                            document.querySelectorAll('link[rel="stylesheet"]').length + 2;
+      
+      // 初始进度（DOM加载完成）
+      progressBar.style.width = '30%';
+      
+      // 图片加载监听
+      Array.from(document.images).forEach(img => {
+        if (img.complete) {
+          resourceLoaded();
+        } else {
+          img.addEventListener('load', resourceLoaded);
+          img.addEventListener('error', resourceLoaded);
+        }
+      });
+      
+      // 脚本加载监听
+      Array.from(document.querySelectorAll('script')).forEach(script => {
+        if (script.complete || script.readyState === 'complete') {
+          resourceLoaded();
+        } else {
+          script.addEventListener('load', resourceLoaded);
+          script.addEventListener('error', resourceLoaded);
+        }
+      });
+      
+      // 样式表加载监听
+      Array.from(document.querySelectorAll('link[rel="stylesheet"]')).forEach(link => {
+        if (link.complete) {
+          resourceLoaded();
+        } else {
+          link.addEventListener('load', resourceLoaded);
+          link.addEventListener('error', resourceLoaded);
+        }
+      });
+      
+      function resourceLoaded() {
+        loadedResources++;
+        const percentComplete = (loadedResources / totalResources) * 70 + 30;
+        progressBar.style.width = Math.min(percentComplete, 100) + '%';
+        
+        // 当所有资源加载完成时
+        if (loadedResources >= totalResources) {
+          setTimeout(() => {
+            loadingContainer.style.opacity = '0';
+          }, 500);
+          
+          setTimeout(() => {
+            loadingContainer.style.display = 'none';
+          }, 1500);
+        }
+      }
+    });
+    
+    // 页面完全加载完成
     window.addEventListener('load', () => {
-  const loadingContainer = document.querySelector('.loading-container');
-  
-  setTimeout(() => {
-    loadingContainer.style.opacity = '0'; 
-  }, 2000); 
-  
-  setTimeout(() => {
-    loadingContainer.style.display = 'none';  
-  }, 2800);  
-});
+      progressBar.style.width = '100%';
+      
+      setTimeout(() => {
+        loadingContainer.style.opacity = '0';
+      }, 500);
+      
+      setTimeout(() => {
+        loadingContainer.style.display = 'none';
+      }, 1500);
+      
+      // 创建星星背景
+      createStars(40);
+    });
 
-
-    const starContainer = document.querySelector('.star-container');
-
-    function createStar() {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      starContainer.appendChild(star);
-  }
-  
-  
-    // 星星数量
-    for (let i = 0; i < 40; i++) {
-      createStar();
+    // 创建星星背景函数
+    function createStars(count) {
+      const starContainer = document.querySelector('.star-container');
+      
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        starContainer.appendChild(star);
+      }
     }
 
     const catPhrases = ["呜呜，不要摸了喵...", "喵...好舒服~", "喵喵喵?", "笨蛋，不要再摸了喵！", "喵~"];
@@ -411,6 +574,8 @@
         xpAdded = true;
         const xpContainer = document.createElement('div');
         xpContainer.classList.add('xp-container');
+        xpContainer.style.opacity = '0';
+        xpContainer.style.transform = 'translateY(20px)';
 
         const xpToggle = document.createElement('button');
         xpToggle.className = 'button xp-toggle';
@@ -432,7 +597,17 @@
         xpOptions.append(catOption, devilOption);
         xpContainer.append(xpToggle, xpOptions);
         buttonContainer.appendChild(xpContainer);
+        
+        // 使用requestAnimationFrame确保DOM更新后再添加动画
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            xpContainer.style.opacity = '1';
+            xpContainer.style.transform = 'translateY(0)';
+            xpContainer.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
+          });
+        });
 
+        // 添加XP选项切换事件
         xpToggle.addEventListener('click', () => {
           xpOptions.classList.toggle('show');
           xpToggle.classList.toggle('open');
