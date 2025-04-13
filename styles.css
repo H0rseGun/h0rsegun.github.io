@@ -1,0 +1,733 @@
+/* 全局样式 */
+:root {
+    --primary-color: #8a2be2; /* 紫色 */
+    --secondary-color: #4169e1; /* 蓝色 */
+    --dark-bg: #121212;
+    --darker-bg: #0a0a0a;
+    --light-text: #f0f0f0;
+    --gray-text: #a0a0a0;
+    --card-bg: rgba(30, 30, 40, 0.7);
+    --hover-color: #9370db;
+    --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    
+    /* 添加科技感字体变量 */
+    --heading-font: 'Orbitron', 'Rajdhani', 'Exo 2', sans-serif;
+    --body-font: 'Titillium Web', 'Quicksand', 'Segoe UI', sans-serif;
+    
+    /* 添加动画时间变量 */
+    --transition-slow: 0.5s;
+    --transition-medium: 0.3s;
+    --transition-fast: 0.2s;
+}
+
+/* 添加Google字体导入 */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@200;300;400;500;600;700&family=Titillium+Web:wght@300;400;600;700&family=Quicksand:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100;200;400;500&family=Fira+Code:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--heading-font);
+}
+
+/* 增强背景效果 */
+body {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(65, 105, 225, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(100, 70, 200, 0.08) 0%, transparent 60%); /* 添加中央渐变 */
+    background-attachment: fixed;
+    position: relative;
+    line-height: 1.6; /* 增加行高 */
+}
+
+/* 添加以下样式来确保页脚始终在底部 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh; /* 确保容器至少有视口高度 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 让中间内容自动填充空间 */
+.container > section {
+    flex: 1;
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--gray-text);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto; /* 将页脚推到容器底部 */
+}
+
+/* 头部样式 */
+header {
+    padding: 3rem 0;
+    position: relative;
+}
+
+/* 导航容器 */
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 主导航 */
+.main-nav {
+    display: flex;
+    gap: 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nav-link {
+    color: var(--light-text);
+    text-decoration: none;
+    font-family: var(--heading-font);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: var(--gradient);
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--darker-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--light-text);
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+}
+
+/* 增强标题的视觉层次 */
+h1 {
+    font-size: 3.2rem; /* 从2.5rem增加 */
+    margin-top: 1.5rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(138, 43, 226, 0.4); /* 增强阴影 */
+    letter-spacing: 2px; /* 增加字母间距 */
+}
+
+.section-title h2 {
+    font-size: 2.2rem; /* 从1.8rem增加 */
+    margin-bottom: 0.8rem;
+    display: inline-block;
+    letter-spacing: 1.5px; /* 增加字母间距 */
+}
+
+/* 增强下划线效果 */
+.underline {
+    height: 4px; /* 从3px增加 */
+    width: 70px; /* 从50px增加 */
+    background: var(--gradient);
+    border-radius: 4px;
+    margin-bottom: 1.5rem; /* 添加底部间距 */
+}
+
+h1, h2, h3, .section-title h2 {
+    font-family: var(--heading-font);
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--gray-text);
+    letter-spacing: 1px;
+    min-height: 1.5em;
+    position: relative;
+    font-family: var(--heading-font);
+    font-weight: 300;
+}
+
+.tagline::after {
+    content: '|';
+    position: absolute;
+    right: -5px;
+    color: var(--primary-color);
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 章节样式 */
+/* 调整容器内边距，提供更好的呼吸空间 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 4rem; /* 增加水平内边距 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 调整卡片内边距，使内容更加舒适 */
+.project-content, .download-content {
+    padding: 2rem; /* 从1.5rem增加到2rem */
+}
+
+/* 增加章节之间的间距 */
+section {
+    margin: 6rem 0; /* 从4rem增加到6rem */
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-title h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.underline {
+    height: 3px;
+    width: 50px;
+    background: var(--gradient);
+    border-radius: 3px;
+}
+
+
+/* 社交链接部分 */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--light-text);
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+}
+
+.social-link i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.github i {
+    color: var(--primary-color);
+}
+
+.bilibili i {
+    color: var(--secondary-color);
+}
+
+.social-link span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* 项目部分 */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.project-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    color: var(--gray-text);
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-stack span {
+    background: var(--gradient);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: var(--heading-font);
+    letter-spacing: 0.5px;
+}
+
+/* 下载页面样式 */
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.download-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    height: 100%;
+}
+
+.download-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+}
+
+.download-content {
+    padding: 1.5rem;
+}
+
+.download-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.download-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    color: var(--gray-text);
+}
+
+/* 添加下载页面span元素的字体样式 */
+.download-content span {
+    font-family: var(--heading-font);
+    color: var(--light-text);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--gradient);
+    color: var(--light-text);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: var(--heading-font);
+}
+
+.download-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--gray-text);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 3rem;
+}
+
+/* 自定义光标 */
+.cursor {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary-color);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    mix-blend-mode: difference;
+}
+
+/* Bilibili图标 */
+.fa-bilibili:before {
+    content: "\e3d3";
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .social-links {
+        gap: 1rem;
+    }
+    
+    .social-link {
+        width: 120px;
+        height: 120px;
+        padding: 1rem;
+    }
+    
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 动画效果优化
+
+我将为您的网站添加更多动画效果，并优化现有的动画。主要包括页面加载动画、元素悬停动画、滚动显示动画等，这些将使您的网站更具交互性和视觉吸引力。
+
+以下是对 CSS 文件的修改：
+
+/* 添加页面加载动画 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container > * {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* 为不同部分设置不同的动画延迟 */
+header {
+    animation-delay: 0.1s;
+}
+
+#about {
+    animation-delay: 0.3s;
+}
+
+#projects {
+    animation-delay: 0.5s;
+}
+
+#downloads {
+    animation-delay: 0.7s;
+}
+
+footer {
+    animation-delay: 0.9s;
+}
+
+/* 优化现有的浮动动画 */
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+    50% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(8px) rotate(-1deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.profile-img {
+    animation: float 8s ease-in-out infinite;
+    transition: all var(--transition-medium) ease;
+}
+
+.profile-img:hover {
+    filter: drop-shadow(0 0 15px var(--primary-color));
+}
+
+/* 添加标题文字动画 */
+@keyframes glowText {
+    0%, 100% { text-shadow: 0 0 15px rgba(138, 43, 226, 0.4); }
+    50% { text-shadow: 0 0 25px rgba(138, 43, 226, 0.7), 0 0 40px rgba(65, 105, 225, 0.4); }
+}
+
+h1 {
+    animation: glowText 5s infinite;
+}
+
+/* 添加下划线动画 */
+@keyframes expandLine {
+    from { width: 0; opacity: 0; }
+    to { width: 70px; opacity: 1; }
+}
+
+.underline {
+    animation: expandLine 1s ease-out forwards;
+}
+
+/* 添加卡片悬停时的动画效果 */
+.project-card, .download-card, .social-link {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before, .download-card::before, .social-link::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: all 0.6s ease;
+}
+
+.project-card:hover::before, .download-card:hover::before, .social-link:hover::before {
+    top: 100%;
+    left: 100%;
+}
+
+/* 添加按钮点击动画 */
+.download-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.download-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.download-button:active::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+/* 添加滚动显示动画 */
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* 为技术标签添加动画 */
+.tech-stack span {
+    transition: all 0.3s ease;
+    animation: slideInUp 0.5s forwards;
+    opacity: 0;
+    animation-delay: calc(0.1s * var(--i, 0));
+}
+
+.tech-stack span:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 优化光标动画 */
+.cursor {
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background-color 0.3s ease;
+}
+
+.cursor-follower {
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* 添加链接悬停时光标变化 */
+a:hover ~ .cursor, button:hover ~ .cursor {
+    width: 20px;
+    height: 20px;
+    background-color: var(--secondary-color);
+}
+
+a:hover ~ .cursor-follower, button:hover ~ .cursor-follower {
+    width: 40px;
+    height: 40px;
+    border-color: var(--primary-color);
+    opacity: 0.5;
+}
+
+/* 添加导航链接动画 */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-medium) ease;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-medium) ease;
+}
+
+.nav-link:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* 添加打字机效果的增强动画 */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.tagline::after {
+    content: '|';
+    position: absolute;
+    right: -5px;
+    color: var(--primary-color);
+    animation: blink 0.7s infinite;
+}
+
+/* 添加页面滚动进度指示器 */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient);
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s ease;
+}
+
+/* 响应式设计中的动画调整 */
+@media (max-width: 768px) {
+    .container > * {
+        animation-duration: 0.5s;
+    }
+    
+    /* 减少移动设备上的动画效果以提高性能 */
+    .project-card:hover, .download-card:hover, .social-link:hover {
+        transform: translateY(-5px);
+    }
+}
