@@ -3,52 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>黄瓜的个人主页</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>特殊字符加密/解密（进制转换）</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 设置 Inter 字体 -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* 防止滚动条出现，确保动画流畅 */
+            overflow: hidden;
+        }
+        /* 自定义 Tailwind 配置，以便使用自定义颜色 */
+        :root {
+            --color-primary-purple: #8B5CF6; /* Deep Purple */
+            --color-secondary-blue: #3B82F6; /* Blue */
+            --color-dark-bg: #121212; /* Very Dark Background */
+            --color-dark-card: #1E1E1E; /* Dark Card Background */
+            --color-text-light: #E0E0E0; /* Light Text */
+            --color-border-dark: #3A3A3A; /* Dark Border */
+            --color-accent-green: #4CAF50; /* Accent Green for success messages */
+        }
+
+        /* Entry Animation */
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .animate-entry {
+            animation: fadeInScaleUp 0.8s ease-out forwards;
+            animation-delay: 0.2s; /* Delay the animation slightly after page load */
+        }
+
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: var(--color-dark-bg);
+            border-radius: 10px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background: var(--color-border-dark);
+            border-radius: 10px;
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary-purple);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-purple': 'var(--color-primary-purple)',
+                        'secondary-blue': 'var(--color-secondary-blue)',
+                        'dark-bg': 'var(--color-dark-bg)',
+                        'dark-card': 'var(--color-dark-card)',
+                        'text-light': 'var(--color-text-light)',
+                        'border-dark': 'var(--color-border-dark)',
+                        'accent-green': 'var(--color-accent-green)',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="nav-container">
-                <div class="profile">
-                    <h1>黄瓜の主页</h1>
-                    <p class="tagline" id="typewriter"></p>
-                </div>
-                <nav class="main-nav">
-                    <a href="download.html" class="nav-link">辅助程序下载</a>
-                </nav>
-            </div>
-        </header>
+<body class="bg-dark-bg flex items-center justify-center min-h-screen p-4">
 
+<div class="container bg-dark-card p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-md text-center animate-entry">
+    <h1 class="text-primary-purple text-3xl md:text-4xl font-extrabold mb-6 tracking-wide">特殊字符加密/解密</h1>
 
-        <section class="social">
-            <div class="section-title">
-                <h2>社交链接</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/H0rseGun" target="_blank" class="social-link github">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://space.bilibili.com/605827566" target="_blank" class="social-link bilibili">
-                    <i class="fab fa-bilibili"></i>
-                    <span>Bilibili</span>
-                </a>
-            </div>
-        </section>
+    <textarea id="inputBox"
+              class="w-full h-32 p-4 mb-6 rounded-lg border border-border-dark bg-dark-bg text-text-light text-base resize-y focus:outline-none focus:ring-2 focus:ring-primary-purple transition duration-200 placeholder-gray-500"
+              placeholder="在这里输入文字以加密，或输入特殊字符以解密..."></textarea>
 
-
-
-        <footer>
-            <p>喵喵喵 Created by H0rse_Gun</p>
-        </footer>
+    <div class="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4 mb-6">
+        <button class="encrypt-btn flex-1 py-3 px-6 rounded-lg bg-primary-purple text-white font-semibold text-lg cursor-pointer hover:bg-opacity-80 transform hover:-translate-y-1 transition duration-200 shadow-lg hover:shadow-xl"
+                onclick="encrypt()">加密</button>
+        <button class="decrypt-btn flex-1 py-3 px-6 rounded-lg bg-secondary-blue text-white font-semibold text-lg cursor-pointer hover:bg-opacity-80 transform hover:-translate-y-1 transition duration-200 shadow-lg hover:shadow-xl"
+                onclick="decrypt()">解密</button>
     </div>
+    
+    <label class="block text-text-light font-bold mb-3 text-left" for="outputBox">输出结果：</label>
+    <textarea id="outputBox" readonly
+              class="w-full h-32 p-4 rounded-lg border border-border-dark bg-dark-bg text-text-light text-base resize-y focus:outline-none focus:ring-2 focus:ring-primary-purple transition duration-200"></textarea>
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <button id="copyButton"
+            class="mt-4 w-full py-3 px-6 rounded-lg bg-gray-700 text-white font-semibold text-lg cursor-pointer hover:bg-gray-600 transform hover:-translate-y-1 transition duration-200 shadow-lg hover:shadow-xl relative"
+            onclick="copyOutput()">
+        复制解密文本
+        <span id="copyMessage" class="absolute inset-x-0 bottom-full mb-2 text-sm text-accent-green opacity-0 transition-opacity duration-300">已复制！</span>
+    </button>
+</div>
 
-    <script src="script.js"></script>
+<script>
+    // Base64 character set
+    const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    // Special character set for encryption
+    const specialChars = ['嗯', '啊', '~', '♡', '！'];
+    
+    // Map Base64 characters to their indices
+    const base64Map = {};
+    for (let i = 0; i < base64Chars.length; i++) {
+        base64Map[base64Chars[i]] = i;
+    }
+    
+    // Map special characters to their numerical values
+    const specialCharMap = {};
+    for (let i = 0; i < specialChars.length; i++) {
+        specialCharMap[specialChars[i]] = i;
+    }
+
+    /**
+     * Converts a decimal number (0-63) to a 3-digit base-5 string.
+     * Example: 10 (decimal) -> 20 (base-5) -> "020" (3-digit base-5 string)
+     * @param {number} dec - The decimal number to convert.
+     * @returns {string} A 3-digit base-5 string.
+     */
+    function decimalToBase5(dec) {
+        let result = '';
+        let num = dec;
+        // Ensure the result is always 3 digits, padding with leading zeros if necessary
+        while (result.length < 3) {
+            result = (num % 5) + result;
+            num = Math.floor(num / 5);
+        }
+        return result;
+    }
+
+    /**
+     * Converts a base-5 string to a decimal number.
+     * @param {string} base5Str - The base-5 string to convert.
+     * @returns {number} The decimal number.
+     */
+    function base5ToDecimal(base5Str) {
+        return parseInt(base5Str, 5);
+    }
+    
+    /**
+     * Encrypts plain text into a sequence of special characters.
+     * Process: Text -> UTF-8 Encode -> Base64 Encode -> Base64 Char Index -> Decimal to Base-5 (3 digits) -> Map Base-5 digits to special characters.
+     */
+    function encrypt() {
+        const inputBox = document.getElementById('inputBox');
+        const outputBox = document.getElementById('outputBox');
+        const text = inputBox.value;
+        
+        if (!text) {
+            outputBox.value = '请输入内容！';
+            return;
+        }
+
+        try {
+            // 1. Encode text to Base64
+            // encodeURIComponent and unescape are used to correctly handle non-ASCII characters for Base64 encoding
+            const base64Str = btoa(unescape(encodeURIComponent(text)));
+            let encryptedStr = '';
+
+            // 2. Convert Base64 characters to 5-digit numbers, then to special characters
+            for (let i = 0; i < base64Str.length; i++) {
+                const char = base64Str[i];
+                const charIndex = base64Map[char];
+                
+                if (charIndex === undefined) {
+                    // If it's the Base64 padding character '=', add it directly to the encrypted string
+                    if (char === '=') {
+                         encryptedStr += '=';
+                         continue;
+                    }
+                    // Theoretically, invalid Base64 characters should not appear here
+                    throw new Error("无效的 Base64 字符。");
+                }
+                
+                // Convert the decimal index of the Base64 character to a 3-digit base-5 string
+                const base5 = decimalToBase5(charIndex);
+                
+                // Map each digit of the base-5 string to a special character
+                encryptedStr += specialChars[parseInt(base5[0])] + specialChars[parseInt(base5[1])] + specialChars[parseInt(base5[2])];
+            }
+            
+            outputBox.value = encryptedStr;
+        } catch (e) {
+            outputBox.value = '加密失败，请检查输入或重试。';
+            console.error('加密错误：', e);
+        }
+    }
+
+    /**
+     * Decrypts a sequence of special characters back to plain text.
+     * Process: Special Characters -> Base-5 digits -> Base-5 to Decimal -> Map Decimal back to Base64 Character -> Base64 Decode -> UTF-8 Decode -> Text.
+     */
+    function decrypt() {
+        const inputBox = document.getElementById('inputBox');
+        const outputBox = document.getElementById('outputBox');
+        const text = inputBox.value;
+
+        if (!text) {
+            outputBox.value = '请输入内容！';
+            return;
+        }
+
+        try {
+            // 1. Convert special characters to a base-5 digit string
+            let base5Str = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const charIndex = specialCharMap[char];
+
+                if (charIndex === undefined) {
+                     // If it's the Base64 padding character '=', retain it directly
+                     if (char === '=') {
+                         base5Str += '=';
+                         continue;
+                     }
+                     // If the input contains characters not in the special character set, it's considered a format error
+                     throw new Error("输入格式错误，包含无效字符。");
+                }
+                base5Str += charIndex; // Add the numerical value of the special character to the base-5 string
+            }
+
+            let base64Str = '';
+            // 2. Convert base-5 digit string to decimal, then to Base64 characters
+            // Each group of 3 base-5 digits corresponds to one Base64 character
+            for (let i = 0; i < base5Str.length; i += 3) {
+                // Handle Base64 padding character '='
+                if (base5Str[i] === '=') {
+                    base64Str += '=';
+                    // Adjust loop index if padding characters are encountered
+                    // This logic handles one or two '=' padding characters
+                    if (base5Str[i+1] === '=') {
+                        base64Str += '=';
+                        i += 1; // Skip the second '=' if present
+                    }
+                    continue; // Continue to the next iteration after handling '='
+                }
+                const base5Chunk = base5Str.substring(i, i + 3);
+                
+                // Convert the 3-digit base-5 string to a decimal number
+                const decimal = base5ToDecimal(base5Chunk);
+                
+                // Map the decimal number back to a Base64 character
+                base64Str += base64Chars[decimal];
+            }
+            
+            // 3. Decode Base64 string back to original text
+            // escape and decodeURIComponent are used to correctly decode Base64 strings containing non-ASCII characters
+            const decodedText = decodeURIComponent(escape(atob(base64Str)));
+            outputBox.value = decodedText;
+        } catch (e) {
+            outputBox.value = '解密失败，请检查输入的格式是否正确。';
+            console.error('解密错误：', e);
+        }
+    }
+
+    /**
+     * Copies the content of the outputBox to the clipboard.
+     * Provides a temporary visual feedback message.
+     */
+    function copyOutput() {
+        const outputBox = document.getElementById('outputBox');
+        const copyMessage = document.getElementById('copyMessage');
+        
+        if (outputBox.value) {
+            // Use execCommand for broader compatibility in iframes
+            outputBox.select();
+            document.execCommand('copy');
+
+            // Show "Copied!" message
+            copyMessage.classList.add('opacity-100');
+            copyMessage.classList.remove('opacity-0');
+            setTimeout(() => {
+                copyMessage.classList.remove('opacity-100');
+                copyMessage.classList.add('opacity-0');
+            }, 1500); // Hide after 1.5 seconds
+        } else {
+            // Optionally, provide feedback if there's nothing to copy
+            // For this app, we'll just do nothing if output is empty
+        }
+    }
+</script>
+
 </body>
 </html>
+
